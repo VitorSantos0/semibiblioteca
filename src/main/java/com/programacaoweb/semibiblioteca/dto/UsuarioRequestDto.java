@@ -11,6 +11,8 @@ public record UsuarioRequestDto(
         String login,
         @NotNull
         String senha,
+        @NotNull
+        String tipo,
         String matricula,
         String curso) {
 }
