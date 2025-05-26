@@ -2,7 +2,7 @@ package com.programacaoweb.semibiblioteca.controller;
 
 import com.programacaoweb.semibiblioteca.dto.AutenticacaoDto;
 import com.programacaoweb.semibiblioteca.dto.RespostaDto;
-import com.programacaoweb.semibiblioteca.dto.UsuarioRequestDto;
+import com.programacaoweb.semibiblioteca.dto.UsuarioDto;
 import com.programacaoweb.semibiblioteca.model.Usuario;
 import com.programacaoweb.semibiblioteca.service.AutenticacaoService;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<Object> registrar(@RequestBody UsuarioRequestDto requestDto) {
+    public ResponseEntity<Object> registrar(@RequestBody UsuarioDto requestDto) {
         try {
             Usuario usuario = this.autenticacaoService.registrar(requestDto);
             if(usuario != null) return ResponseEntity.ok(new RespostaDto<>(true, "Usuário registrado com sucesso", usuario));

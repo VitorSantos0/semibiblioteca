@@ -4,6 +4,7 @@ import com.programacaoweb.semibiblioteca.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,6 +19,11 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<Object> index() {
         return ResponseEntity.ok(this.usuarioService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> show(@PathVariable Long id) {
+        return ResponseEntity.ok(this.usuarioService.findById(id));
     }
 
 }

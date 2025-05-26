@@ -1,5 +1,6 @@
 package com.programacaoweb.semibiblioteca.model;
 
+import com.programacaoweb.semibiblioteca.dto.LivroDto;
 import jakarta.persistence.*;
 
 @Entity @Table(name = "livros")
@@ -8,8 +9,21 @@ public class Livro {
     private Long id;
     private String nome;
     private String autor;
-    private String editora;
     private String ano;
+
+    public Livro() {}
+
+    public Livro(String nome, String autor, String ano) {
+        this.nome = nome;
+        this.autor = autor;
+        this.ano = ano;
+    }
+
+    public Livro(LivroDto dto) {
+        this.nome = dto.nome;
+        this.autor = dto.autor;
+        this.ano = dto.ano;
+    }
 
     public Long getId() {
         return id;
@@ -33,14 +47,6 @@ public class Livro {
 
     public void setAutor(String autor) {
         this.autor = autor;
-    }
-
-    public String getEditora() {
-        return editora;
-    }
-
-    public void setEditora(String editora) {
-        this.editora = editora;
     }
 
     public String getAno() {

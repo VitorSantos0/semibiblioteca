@@ -1,6 +1,6 @@
 package com.programacaoweb.semibiblioteca.service;
 
-import com.programacaoweb.semibiblioteca.dto.UsuarioRequestDto;
+import com.programacaoweb.semibiblioteca.dto.UsuarioDto;
 import com.programacaoweb.semibiblioteca.model.TipoUsuario;
 import com.programacaoweb.semibiblioteca.model.Usuario;
 import com.programacaoweb.semibiblioteca.service.autenticacao.TokenService;
@@ -29,17 +29,18 @@ public class AutenticacaoService {
         return null;
     }
 
-    public Usuario registrar(UsuarioRequestDto requestDto) {
-        if(this.usuarioService.findByEmail(requestDto.email()) != null) return null;
-        if(this.usuarioService.findByLogin(requestDto.login()) != null) return null;
+    public Usuario registrar(UsuarioDto requestDto) {
+        if(this.usuarioService.findByEmail(requestDto.email) != null) return null;
+        if(this.usuarioService.findByLogin(requestDto.login) != null) return null;
         Usuario usuario = new Usuario();
-        usuario.setNome(requestDto.nome());
-        usuario.setEmail(requestDto.email());
-        usuario.setTipo(requestDto.tipo().equals("USER") ? TipoUsuario.USER : TipoUsuario.ADM);
-        usuario.setLogin(requestDto.login());
-        usuario.setSenha(new BCryptPasswordEncoder().encode(requestDto.senha()));
-        usuario.setMatricula(requestDto.matricula());
-        usuario.setCurso(requestDto.curso());
+        usuario.setNome(requestDto.nome);
+        usuario.setEmail(requestDto.email);
+        if(requestDto.tipo != null && requestDto.tipo.equals("ADM")) usuario.setTipo(TipoUsuario.ADM);
+        else usuario.setTipo(TipoUsuario.USER);
+        usuario.setLogin(requestDto.login);
+        usuario.setSenha(new BCryptPasswordEncoder().encode(requestDto.senha));
+        usuario.setMatricula(requestDto.matricula);
+        usuario.setCurso(requestDto.curso);
         this.usuarioService.save(usuario);
         return usuario;
     }
